@@ -7,6 +7,8 @@ const choices = ["rock", "paper", "scissors"]
 const gameDescription = document.createElement("span")
 const body = document.querySelector("body");
 const btnOptions = document.createElement("ul");
+const scoreBox = document.createElement("div");
+const scoreDescription = document.createElement("div");
 
 const rockBtn = document.createElement("button");
 const paperBtn = document.createElement("button");
@@ -16,8 +18,11 @@ gameDescription.textContent = "Play against the computer a game of rock, paper, 
 rockBtn.textContent = "Rock";
 paperBtn.textContent = "Paper";
 scissorsBtn.textContent = "Scissors";
+
 body.appendChild(gameDescription);
 body.appendChild(btnOptions);
+body.appendChild(scoreBox);
+body.appendChild(scoreDescription);
 btnOptions.appendChild(rockBtn);
 btnOptions.appendChild(paperBtn);
 btnOptions.appendChild(scissorsBtn);
@@ -45,6 +50,7 @@ function playGame (playerSelection){
 
 
 function playRound(playerSelection) {
+
 
     if (computerSelection == playerSelection) {
         return 'Tie';
@@ -76,26 +82,39 @@ function playRound(playerSelection) {
     else {
         return 'That is not an option!'
     }
+    
 }
+console.log(computerScore, playerScore);
+scoreBox.textContent = 'Player Score: ' + playerScore + ' Computer Score: ' + computerScore; 
+gameWinner();
 }
 
 
 
 
 function gameWinner() {
-    if (playerScore == computerScore){
-        return 'Tie game!'
+    if (playerScore === computerScore){
+        scoreDescription.textContent = "Tie game!";
     }
-    else if (playerScore > computerScore){
-        return 'Player wins! Best out of 5.' 
+    else if (playerScore > computerScore && playerScore !== 5){
+        scoreDescription.textContent = "You are in the lead! Keep playing to crush your enemies!";
     }
-    else (playerScore < computerScore)
-        return 'Computer wins! Best out of 5.' 
+    else if (playerScore < computerScore && computerScore !== 5){
+        scoreDescription.textContent = "You are such a loser right now!"
+    }
+    else if (playerScore === 5){
+        alert('GAME OVER! Player wins, best out of 5.');
+        scoreDescription.textContent = 'Game over, Champion!';
+    }
+    else if(computerScore === 5){
+        alert('GAME OVER! Computer wins, best out of 5.'); 
+        scoreDescription.textContent = 'Game over, Loser!';
+    }    
+    else {
+    }
 }
 
-
-
-
 console.log(playerScore, computerScore);
+
 
 
